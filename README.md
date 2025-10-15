@@ -43,11 +43,13 @@ To set up each Pico to be a sensor, firstly you need to install the MicroPython 
 
 With this done, use `Thonny` to copy `battery_sensor.py` to the Pico but **ensure** that you rename it to be `main.py`. This makes the Pico load and run this script when it gets powered up. Also copy `config_batt.py` over to the Pico, making sure that you change the `voltid` value in the file.
 
+> Note also: these values in `config_batt.py` are from when I was trying to get WiFi to work, so they are not needed: `ssid`, `password`, `server` and `serverport`.
+
 You should now be able to connect the Pico to either a 5V USB power supply or a 12V power supply (but not both at the same time). It will start running the `main.py` script and send the ADC value using LoRa out to the receiver.
 
 ## Specific Sensor Functions
 
-When I originally started this project, I tried to use UDP over WiFi. I've left the original UDP code in the `config_batt.py` script but commented out.
+When I originally started this project, I tried to use UDP over WiFi. I've left the original UDP code in the `battery_sensor.py` script but commented out.
 
 If you want to use this script as a basis for your own project, you might want to look at these functions:
 
@@ -82,7 +84,7 @@ while True:
 
 The ADC on the Pico 2 (and the original Pico) is noise sensitive, so in the sensor software I:
 
-  * set the switch-mode power supply pin high before sampling from the ADC to reduce noise,
+  * set the switch-mode power supply pin high before sampling from the ADC to reduce noise (as per [this article](https://www.reddit.com/r/raspberrypipico/comments/ptwkxu/noisy_analog_read/)),
   * connect ADC2 to ground, sample from ADC0 and subtract the ADC2 value from ADC0 to try to remove any zero offset, and
   * sample many times (one hundred times, actually) and average the results to reduce noise.
 
@@ -169,6 +171,8 @@ In the [docs](docs/) directory I've left the datasheets for the RYLR998 module a
 
 I based the sensor's LoRa code on
 [this tutorial](https://www.hackster.io/Shilleh/lora-and-raspberry-pi-pico-w-building-a-sender-receiver-0412ed) by Mahmood M. Shilleh.
+
+[This tutorial](https://timhanewich.medium.com/using-uart-between-a-raspberry-pi-pico-and-raspberry-pi-3b-raspbian-71095d1b259f) by Tim Hanewich has Python code to use the UART on the Raspberry Pi, if you can't work out how my Perl code operates.
 
 
 
