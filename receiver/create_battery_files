@@ -1,0 +1,29 @@
+#!/bin/sh
+#
+# Create both the SQL database and the RRDTool file
+#
+cat batterydb.sql | sqlite3 batteries.db
+
+# GAUGE:180:0:15 (and --step 120) means:
+#  individual values every 120 seconds, between 0 and 15,
+#  saving UNKNOWN if no data after 240 seconds.
+#
+# RRA:LAST:0:1:1440 means:
+#  1 measurement (the "LAST" measurement), 720 round-robin elements.
+#  720 * 2min = 1440 minutes which is 24 hours. So, data points
+#  for each 1-minute interval for a whole day.
+
+# RRA:AVERAGE:0.5:5:1008 means:
+# 5 measurements i.e. data points each 5*2 minutes. 1008 * 10 mins
+# is 10,080 minutes or one week
+
+rrdtool create batteries.rrd \
+	 --start 1680962444 \
+         --step 120 \
+         DS:Battery1:GAUGE:240:0:15 \
+         DS:Battery2:GAUGE:240:0:15 \
+         DS:Battery3:GAUGE:240:0:15 \
+         DS:Battery4:GAUGE:240:0:15 \
+         DS:Battery5:GAUGE:240:0:15 \
+         RRA:LAST:0:1:1440 \
+         RRA:AVERAGE:0:5:1008
