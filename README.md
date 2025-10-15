@@ -149,7 +149,9 @@ then reboot the Pi so that they take effect.
 
 ## Receiver Software
 
-I'm an old guy, so I wrote the receiver in Perl instead of Python. You probably won't want to use the receiver code, but look in the file [receiver/tankserver.pl](tankserver.pl) for these functions:
+The receiver code is in the [receiver](receiver/) directory.
+
+I'm an old guy, so I wrote the receiver in Perl instead of Python. You probably won't want to use the receiver code, but look in the file [tankserver.pl](receiver/tankserver.pl) for these functions:
 
   * `send_lora_command()` which sends commands to the RYLR998 module,
   * `recv_lora_data()` which receives data frames from the RYLR998 module, and
