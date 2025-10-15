@@ -167,6 +167,8 @@ As with the sensor code, I've left the old UDP receiving code in the `tankserver
 
 In the [docs](docs/) directory I've left the datasheets for the RYLR998 module and the SPU02M-05 DC-DC converter.
 
+I based the sensor's LoRa code on
+[this tutorial](https://www.hackster.io/Shilleh/lora-and-raspberry-pi-pico-w-building-a-sender-receiver-0412ed) by Mahmood M. Shilleh.
 
 
 
