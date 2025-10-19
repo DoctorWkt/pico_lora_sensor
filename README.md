@@ -1,5 +1,8 @@
-# pico_lora_sensor
+# Pico LoRa Sensor
+
 A remote sensor using a Raspi Pico and a LoRa module.
+
+![build board](pics/built_board.jpg)
 
 If you wish to do remote sensing and you have either 12V or 5V power, then this might be a project that you can adapt for your own use case.
 
@@ -18,8 +21,6 @@ Here is the hardware for each battery sensor:
   * A printed circuit board for the components.
   * Some wire to connect the PCB to the battery, which provides both the power for the sensor and the voltage to sense.
   * A waterproof box to hold the PCB.
-
-I've actually used pin headers so that I don't have to solder the Pico 2 and the LoRa module directly to the PCB.
 
 The Zip file in the [Kicad](Kicad/) directory holds the KiCaD 8 project files for the circuit and the PCB.
 
