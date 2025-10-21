@@ -32,6 +32,8 @@ Here are images of the circuit and the PCB.
 
 ![pcb](pics/pcb.png)
 
+In the field, I found that one of the three sensors was just too far away for its transmissions to reach the receiver. To solve this, I unwound the coil antenna on the RYLR998 module and poked most of it out of the enclosure box (and sealed up the hole, of course).
+
 ## Sensor Software
 
 In the `sensor` directory you will find:

@@ -70,7 +70,7 @@ sub recv_lora_data() {
         my $answer = <$LORAFH>;
         if ( defined($answer) ) {
 
-            # info("Received from LoRa: $answer\n");
+            info("Received from LoRa: $answer\n");
             my ( undef, undef, $data ) = split( /,/, $answer );
             return ($data);
         }
@@ -146,21 +146,20 @@ sub saveVoltages() {
 # Become a daemon
 sub startService() {
 
+    my $daemon = Proc::Daemon->new(
+    	work_dir => '/tmp',
+        pid_file => '/tmp/tankserver.pid'
+    );
+
     # See if we are already running
-    open(my $fh, "-|", "/usr/bin/pgrep tankserver.pl")
-	|| die("Cannot do a pgrep: $!\n");
-    while (<$fh>) {
-      die("tankserver already running: pid $_");
+    my $existpid= $daemon->Status("/tmp/tankserver.pid");
+    if (defined($existpid) && $existpid != 0) {
+	info("Already running as pid $existpid");
+	exit(1);
     }
-    close($fh);
 
     # Become a daemon if no -f command-line argument.
     if ( ( @ARGV != 1 ) || ( $ARGV[0] ne "-f" ) ) {
-
-        my $daemon = Proc::Daemon->new(
-            work_dir => '/tmp',
-            pid_file => '/tmp/tankserver.pid'
-        );
 
         # Exit if we are the parent
         my $pid = $daemon->Init;
@@ -168,6 +167,7 @@ sub startService() {
 
         info("We are now a daemon");
     }
+
     info( "Starting at " . localtime() );
 }
 

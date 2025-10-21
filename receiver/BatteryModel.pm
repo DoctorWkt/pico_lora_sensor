@@ -74,6 +74,7 @@ sub setBatteryVoltage {
     # Calculate the battery's voltage
     my $voltage = getLevelAsVoltage( $adcval, $battery[2],
 					      $battery[3], $battery[4] );
+    info("Battery $id has voltage $voltage");
 
     # Remove outdated level data
     $dbh->do("delete from histlevels where timestamp < ?", undef, $yesterday);
